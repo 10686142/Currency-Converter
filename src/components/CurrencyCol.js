@@ -1,19 +1,49 @@
 import React, { Component } from 'react';
-
-
+import Dropdown from 'react-bootstrap/Dropdown';
+import CurrDropDown from './CurrDropDown.js';
 
 class CurrencyCol extends Component {
 
     render() {
 
         return (
-            <div className="col">
-                <div className="row">
-                    Drop down {this.props.currency}
-                </div>
+            <div className="col-5">
+                <div className="container">
+                    <div className="row rowSelectCurr">
+                        <Dropdown
+                            className="selectCurr"
+                            onSelect={this.props.currSelected.bind(this)}
+                        >
 
-                <div className="row">
-                    Input int
+                        <Dropdown.Toggle variant="secondary"
+                        id="dropdown-flags"
+                        className="text-left" >
+                            <CurrDropDown curr={this.props.currency} />
+                        </Dropdown.Toggle>
+
+
+                        <Dropdown.Menu>
+                            {this.props.currNames.map((currName, index) => (
+                            <Dropdown.Item
+                            key={index}
+                            eventKey={currName}
+                            >
+                                <CurrDropDown key={currName + index} curr={currName} />
+                            </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                        </Dropdown>
+
+                    </div>
+
+                    <div className="row">
+                        <input
+                        className="inputAmount"
+                        type="number"
+                        value={this.props.amount}
+                        onChange={this.props.onChangeAmount}
+                        />
+                    </div>
                 </div>
             </div>
 
