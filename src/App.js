@@ -1,9 +1,10 @@
 import './App.css';
+import CurrConverter from './components/CurrConverter.js';
 
 function App() {
   return (
     <div className="App">
-        <h1>Currency Converter</h1>
+        <CurrConverter />
     </div>
   );
 }
