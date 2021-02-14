@@ -5,7 +5,6 @@ import CurrDropDown from './CurrDropDown.js';
 class CurrencyCol extends Component {
 
     render() {
-
         return (
             <div className="col-5">
                 <div className="container">
@@ -46,7 +45,6 @@ class CurrencyCol extends Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 

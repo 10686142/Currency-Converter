@@ -77,10 +77,34 @@ class CurrConverter extends Component {
         }
     }
 
-
-    currSelected = (curr) => {
-      alert(curr);
+    baseAmountChanged= (e) => {
+        this.updateAmounts(true, e.target.value);
     }
+
+    toAmountChanged = (e) => {
+        this.updateAmounts(false, e.target.value);
+    }
+
+    baseCurrSelected = (curr) => {
+        // This will re-reun our initial setup and change everything needed
+        this.loadCurrencies(curr)
+    }
+
+
+    // No api calle needed, we need to change the exchange
+    // rate from the dictionary and update the currency and amount shown
+    toCurrSelected = (curr) => {
+        const newExRate = this.state.currRates[curr];
+        const baseAmount = this.state.baseAmount;
+
+        // Update exchange rate and the currency name
+        this.setState({
+            toCurr: curr,
+            exchangeRate: newExRate,
+            toAmount: baseAmount * newExRate
+        });
+    }
+
 
     render() {
         return (
@@ -93,7 +117,7 @@ class CurrConverter extends Component {
                             currNames={this.state.currNames}
                             currency={this.state.baseCurr}
                             amount={this.state.baseAmount}
-                            currSelected={this.currSelected}
+                            currSelected={this.baseCurrSelected}
                             onChangeAmount={this.baseAmountChanged}
                             isBase={true}
                             key="base"
@@ -102,7 +126,7 @@ class CurrConverter extends Component {
                             currNames={this.state.currNames}
                             currency={this.state.toCurr}
                             amount={this.state.toAmount}
-                            currSelected={this.currSelected}
+                            currSelected={this.toCurrSelected}
                             onChangeAmount={this.toAmountChanged}
                             isBase={false}
                             key="to"

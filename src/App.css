@@ -1,4 +1,33 @@
+
+#heart {
+    color: #e25555;
+}
+
 #currencyCardWrapper {
     margin-top: 5%;
     width: 65%;
+}
+
+#currencyCard {
+}
+
+.currency-flag {
+    margin-right: 3px
+}
+
+.selectCurr, .inputAmount{
+    width: 100%;
+    height: 38px;
+}
+
+.rowSelectCurr{
+    margin-bottom: 10px;
+}
+
+/* Full width dropdown bootstrap buttons
+https://github.com/react-bootstrap/react-bootstrap/issues/1985#issuecomment-493501161
+ */
+.dropdown-toggle,
+.dropdown-menu {
+  width: 100%;
 }

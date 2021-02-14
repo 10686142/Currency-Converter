@@ -5,7 +5,8 @@ class CurrDropDown extends PureComponent {
     render() {
         return (
             <React.Fragment>
-            <div>{this.props.curr.toLowerCase()} </div>
+            <div className={"currency-flag currency-flag-" + this.props.curr.toLowerCase()} />
+            {this.props.curr}
             </React.Fragment>
 
         );
@@ -13,6 +14,3 @@ class CurrDropDown extends PureComponent {
 }
 
 export default CurrDropDown;
-
-
-//
