@@ -5,6 +5,8 @@ import CurrDropDown from './CurrDropDown.js';
 class CurrencyCol extends Component {
 
     render() {
+        const disabled = this.props.isEnabled ? "" : "disabled";
+
         return (
             <div className="col-5">
                 <div className="container">
@@ -17,6 +19,7 @@ class CurrencyCol extends Component {
                         <Dropdown.Toggle variant="secondary"
                         id="dropdown-flags"
                         variant="outline-info"
+                        disabled={disabled}
                         className="text-left" >
                             <CurrDropDown curr={this.props.currency} />
                         </Dropdown.Toggle>
@@ -42,6 +45,7 @@ class CurrencyCol extends Component {
                         type="number"
                         value={this.props.amount}
                         onChange={this.props.onChangeAmount}
+                        disabled={disabled}
                         />
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import CurrencyCol from './CurrencyCol.js';
+import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 
 class CurrConverter extends Component {
@@ -15,7 +16,8 @@ class CurrConverter extends Component {
           toCurr: "USD",
           exchangeRate: 1.0,
           currNames: [],
-          currRates: {}
+          currRates: {},
+          errorMessage: ''
       };
     }
 
@@ -23,7 +25,7 @@ class CurrConverter extends Component {
       this.loadCurrencies(this.state.baseCurr);
     }
 
-    // TODO: Handle errors
+    // Make API call with specified base currency to convert from
     loadCurrencies = (baseQuery) => {
         //
         axios.get(`/latest?base=${baseQuery}`)
@@ -31,18 +33,23 @@ class CurrConverter extends Component {
             this.parseCurrApiData(res.data)
         })
         .catch(err => {
+            // Store custom eror message
+            let errMesg;
+
             // client received an error response (5xx, 4xx)
             if (err.response) {
-
+                errMesg = `Client ${err.status} error. Message: ${err.message}`;
             }
             // client never received a response, or request never left
             else if (err.request) {
-
+                errMesg = `Could not send request. Message: ${err.message}`;
             }
             // anything else
             else {
-
+                errMesg = err.message
             }
+            console.error(errMesg);
+            this.setState({errorMessage: errMesg});
         })
     }
 
@@ -107,10 +114,15 @@ class CurrConverter extends Component {
 
 
     render() {
+        // Change UI if api call went wrong
+        const errPresent = this.state.errorMessage === "" ? false : true;
+
         return (
+
             <div className="mx-auto" id="currencyCardWrapper">
+                {errPresent &&  <Alert variant="danger">{this.state.errorMessage}</Alert>}
                 <Card id="currencyCard">
-                  <Card.Header as="h5">Let's start converting</Card.Header>
+                  <Card.Header as="h5">Two way currency convertion</Card.Header>
                   <Card.Body>
                     <div className="row">
                         <CurrencyCol
@@ -120,6 +132,7 @@ class CurrConverter extends Component {
                             currSelected={this.baseCurrSelected}
                             onChangeAmount={this.baseAmountChanged}
                             isBase={true}
+                            isEnabled={!errPresent}
                             key="base"
                         />
                         <CurrencyCol
@@ -129,6 +142,7 @@ class CurrConverter extends Component {
                             currSelected={this.toCurrSelected}
                             onChangeAmount={this.toAmountChanged}
                             isBase={false}
+                            isEnabled={!errPresent}
                             key="to"
                         />
                     </div>
