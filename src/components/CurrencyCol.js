@@ -44,6 +44,7 @@ class CurrencyCol extends Component {
                         <input
                         className="inputAmount"
                         type="number"
+                        inputmode="decimal"
                         value={this.props.amount}
                         onChange={this.props.onChangeAmount}
                         disabled={disabled}
