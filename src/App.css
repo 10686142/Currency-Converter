@@ -49,3 +49,17 @@ https://github.com/react-bootstrap/react-bootstrap/issues/1985#issuecomment-4935
 #dropdown-flags {
     color: #000;
 }
+
+
+/* Display currency symbol withouth altering raw int value
+https://stackoverflow.com/a/52784528/8970591
+ */
+.currencySymbol{
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 7.5px;
+}
+
+.inputAmount{
+    padding-left: 2em;
+}

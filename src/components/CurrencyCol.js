@@ -40,6 +40,7 @@ class CurrencyCol extends Component {
                     </div>
 
                     <div className="row">
+                        <span className="currencySymbol">{this.props.currSign}</span>
                         <input
                         className="inputAmount"
                         type="number"
@@ -54,5 +55,6 @@ class CurrencyCol extends Component {
     }
 
 }
+
 
 export default CurrencyCol;

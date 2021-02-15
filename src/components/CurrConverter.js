@@ -3,6 +3,8 @@ import Card from 'react-bootstrap/Card';
 import CurrencyCol from './CurrencyCol.js';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
+import currencyToSymbolMap from 'currency-symbol-map/map'
+
 
 class CurrConverter extends Component {
 
@@ -22,7 +24,8 @@ class CurrConverter extends Component {
     }
 
     componentDidMount() {
-      this.loadCurrencies(this.state.baseCurr);
+        // Make initial API call
+        this.loadCurrencies(this.state.baseCurr);
     }
 
     // Make API call with specified base currency to convert from
@@ -117,6 +120,10 @@ class CurrConverter extends Component {
         // Change UI if api call went wrong
         const errPresent = this.state.errorMessage === "" ? false : true;
 
+        // Grabs the right ASCII currency symbol/sign, e.g. USD -> $
+        const baseCurrSign = currencyToSymbolMap[this.state.baseCurr];
+        const toCurrSign = currencyToSymbolMap[this.state.toCurr];
+
         return (
 
             <div className="mx-auto" id="currencyCardWrapper">
@@ -133,6 +140,7 @@ class CurrConverter extends Component {
                             onChangeAmount={this.baseAmountChanged}
                             isBase={true}
                             isEnabled={!errPresent}
+                            currSign={baseCurrSign}
                             key="base"
                         />
                         <CurrencyCol
@@ -143,6 +151,7 @@ class CurrConverter extends Component {
                             onChangeAmount={this.toAmountChanged}
                             isBase={false}
                             isEnabled={!errPresent}
+                            currSign={toCurrSign}
                             key="to"
                         />
                     </div>
