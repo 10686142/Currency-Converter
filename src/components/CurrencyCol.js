@@ -8,7 +8,7 @@ class CurrencyCol extends Component {
         const disabled = this.props.isEnabled ? "" : "disabled";
 
         return (
-            <div className="col-5">
+            <div className="col-6">
                 <div className="container">
                     <div className="row rowSelectCurr">
                         <Dropdown

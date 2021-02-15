@@ -11,10 +11,26 @@
     color: #e25555;
 }
 
-#currencyCardWrapper {
-    margin-top: 5%;
-    width: 65%;
+
+@media (min-width: 320px) and (max-width: 1024px) {
+    #currencyCardWrapper {
+        margin-top: 5%;
+        width: 95%;
+    }
 }
+
+/*All desktop styles attached only after 1025px
+https://github.com/react-bootstrap/react-bootstrap/issues/1985#issuecomment-493501161
+ */
+
+@media (min-width: 1025px) {
+    #currencyCardWrapper {
+        margin-top: 5%;
+        width: 65%;
+    }
+}
+
+
 
 .currency-flag {
     margin-right: 3px
