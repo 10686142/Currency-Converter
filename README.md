@@ -1,6 +1,69 @@
-# Getting Started with Create React App
+# Two way currency converter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is build in Reactjs. And uses the [Foreign exchange rates API](https://exchangeratesapi.io/) to pull recent exchange rates
+
+## Live version
+
+You can view the live version here
+[currency.vsc.app](https://currency.vsc.app/)
+
+
+## How does it work
+The currency converter intially pulls the exchange rates for the base rate of EUR.
+
+
+#### Update either currency amount
+A calculation will be made from left-to-right or from left-to-right, once 1 of the 2 input fields has changed. Here is a snippet of the calculations made:
+
+```
+updateAmounts = (baseIsUpdated, newAmount) => {
+    // Set as constant so we don't reference state,
+    // when we set new state elements
+    const exRate = this.state.exchangeRate;
+
+    if (baseIsUpdated){
+        this.setState({
+            baseAmount: newAmount,
+            toAmount: newAmount * exRate
+        });
+    }else{
+        this.setState({
+            baseAmount: newAmount / exRate,
+            toAmount: newAmount
+        });
+    }
+}
+```
+
+
+#### Update right currency dropdown
+When you update the right currency, a new calculation will be made what the base currency should be:
+
+```
+// No api calle needed, we need to change the exchange
+// rate from the dictionary and update the currency and amount shown
+toCurrSelected = (curr) => {
+    const newExRate = this.state.currRates[curr];
+    const baseAmount = this.state.baseAmount;
+
+     // Update exchange rate and the currency name
+     this.setState({
+            toCurr: curr,
+            exchangeRate: newExRate,
+            toAmount: baseAmount * newExRate
+     });
+ }
+```
+
+#### Update left currency dropdown
+When you update the left currency (base currency), a new API is made to pull all the latest exchanges rates for this new base currency.:
+
+```
+baseCurrSelected = (curr) => {
+    // This will re-reun our initial setup and change everything needed
+    this.loadCurrencies(curr)
+}
+```
 
 ## Available Scripts
 
@@ -14,10 +77,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn build`
 
@@ -29,42 +88,12 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Please make sure to update tests as appropriate.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
