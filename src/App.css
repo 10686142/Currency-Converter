@@ -36,3 +36,16 @@ https://github.com/react-bootstrap/react-bootstrap/issues/1985#issuecomment-4935
 .dropdown-menu {
   width: 100%;
 }
+
+
+.btn-outline-info {
+  color: #fff;
+  border-color: #0abf53;
+}
+.btn-outline-info:hover {
+  color: #E1E9F8;
+  border-color: #0abf53;
+}
+#dropdown-flags {
+    color: #000;
+}

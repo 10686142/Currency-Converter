@@ -16,6 +16,7 @@ class CurrencyCol extends Component {
 
                         <Dropdown.Toggle variant="secondary"
                         id="dropdown-flags"
+                        variant="outline-info"
                         className="text-left" >
                             <CurrDropDown curr={this.props.currency} />
                         </Dropdown.Toggle>
